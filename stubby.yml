@@ -1,0 +1,110 @@
+# Note: by default on OpenWRT stubby configuration is handled via
+# the UCI system and the file /etc/config/stubby. If you want to
+# use this file to configure stubby, then set "option manual '1'"
+# in /etc/config/stubby.
+resolution_type: GETDNS_RESOLUTION_STUB
+round_robin_upstreams: 1
+appdata_dir: "/var/lib/stubby"
+dnssec_return_status: GETDNS_EXTENSION_TRUE
+tls_authentication: GETDNS_AUTHENTICATION_REQUIRED
+tls_query_padding_blocksize: 128
+edns_client_subnet_private: 1
+idle_timeout: 60000
+listen_addresses:
+  - 127.0.0.1@5453
+dns_transport_list:
+  - GETDNS_TRANSPORT_TLS
+tls_connection_retries: 5
+tls_backoff_time: 900
+timeout: 2000
+tls_ca_path: "/etc/ssl/certs/"
+upstream_recursive_servers:
+# IPV4 Servers
+### DNS Privacy Test Servers ###
+# Все указанные сервера поддерживают соединение по TLS1.3
+#The Primary appliedprivacy.net DNS TLS Server  A+
+  - address_data: 37.252.185.232
+    tls_auth_name: "dot1.appliedprivacy.net"
+    tls_port: 443
+    tls_pubkey_pinset:
+      - digest: "sha256"
+        value: TvTo5uauOH66/Vnxl2QHwBhN9xdU0Zp1Jeqi+byC1p4=
+#The dns.aaflalo.me DNS TLS Server     A+
+  - address_data: 176.56.236.175
+    tls_auth_name: "dns.aaflalo.me"
+    tls_port: 853
+    tls_pubkey_pinset:
+      - digest: "sha256"
+        value: 9QK9j+GK8Vc6HrzAGlwxjKL+dWGe/fpLjleufiKKU6o=
+#The BlahDNS German DNS TLS Server   A+
+  - address_data: 159.69.198.101
+    tls_auth_name: "dot-de.blahdns.com"
+    tls_port: 443
+    tls_pubkey_pinset:
+      - digest: "sha256"
+        value: GsfF6a28usi59J/pUUtqbyfmmyKE7+7OfzdLXzUt/Aw=
+#The DNS Warden DNS TLS Secondary Server   A+
+  - address_data: 116.203.35.255
+    tls_auth_name: "dot2.dnswarden.com"
+    tls_port: 443
+    tls_pubkey_pinset:
+      - digest: "sha256"
+        value: aPns02lcGrDxnJQcRSHN8Cfx0XG+IXwqy5ishTQtzR0=
+#The BlahDNS Japan DNS TLS Server   A+
+  - address_data: 108.61.201.119
+    tls_auth_name: "dot-jp.blahdns.com"
+    tls_port: 443
+    tls_pubkey_pinset:
+      - digest: "sha256"
+        value: psuldEImRyeSkU88b2ORtiNQ2uBdo+RCwAw6SxaJWQ4=
+# The securedns.eu DNS TLS Server  A+
+  - address_data: 146.185.167.43
+    tls_auth_name: "dot.securedns.eu"
+    tls_port: 853
+    tls_pubkey_pinset:
+      - digest: "sha256"
+        value: h3mufC43MEqRD6uE4lz6gAgULZ5/riqH/E+U+jE3H8g=
+#The dns.neutopia.org  DNS TLS Server   A+
+  - address_data: 89.234.186.112
+    tls_auth_name: "dns.neutopia.org"
+    tls_port: 443
+    tls_pubkey_pinset:
+      - digest: "sha256"
+        value: wTeXHM8aczvhRSi0cv2qOXkXInoDU+2C+M8MpRyT3OI=
+#The dns.seby.io - Vultr DNS TLS Server   A+
+  - address_data: 139.99.222.72
+    tls_auth_name: "dot.seby.io"
+    tls_port: 853
+    tls_pubkey_pinset:
+      - digest: "sha256"
+        value: 8A/1KQQiN+aFWenQon076nAINhlZjGkB15C4E/qogGw=
+#The dns.digitale-gesellschaft.ch DNS TLS Server # 1   A+
+  - address_data: 185.95.218.43
+    tls_auth_name: "dns.digitale-gesellschaft.ch"
+    tls_port: 853
+    tls_pubkey_pinset:
+      - digest: "sha256"
+        value: JnvUziCIRjvSPYAqcTkQu7ZPuWLP3R6R6aPKrDvlzMs=
+#The dns.digitale-gesellschaft.ch  DNS TLS Server # 2    A+
+  - address_data: 185.95.218.42
+    tls_auth_name: "dns.digitale-gesellschaft.ch"
+    tls_port: 853
+    tls_pubkey_pinset:
+      - digest: "sha256"
+        value: nBRTYH4++qjDTSJAhlzd2wxXf5cBviICH74qg4Qi3uw=
+#The dot.tiar.app DNS TLS Server   A+
+  - address_data: 174.138.29.175
+    tls_auth_name: "dot.tiar.app"
+    tls_port: 853
+    tls_pubkey_pinset:
+      - digest: "sha256"
+        value: AlZ2o2V62EJgD/7QjuuJWRvVLi2cDLiDR2yux6WNnnA=
+
+### Anycast DNS Privacy Public Resolvers ###
+#Quad9 'secure' DNS TLS Secondary Server  A+
+  - address_data: 149.112.112.112
+    tls_auth_name: "dns.quad9.net"
+    tls_port: 853
+    tls_pubkey_pinset:
+      - digest: "sha256"
+        value: /SlsviBkb05Y/8XiKF9+CZsgCtrqPQk5bh47o0R3/Cg=
