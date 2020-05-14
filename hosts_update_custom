@@ -1,9 +1,9 @@
 #!/bin/sh
 # указываем адреса нужных списков, формируем из двух источников
-/usr/bin/wget -N https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
-/usr/bin/wget -N https://raw.githubusercontent.com/jfoboss/dnscrypt-domain-blacklists/master/blacklist.txt
+wget -N https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+wget -N https://raw.githubusercontent.com/jfoboss/dnscrypt-domain-blacklists/master/blacklist.txt
 # указываем адрес нужного белого списка
-/usr/bin/wget -N https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
+wget -N https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
 # извлекаем домены из списка hosts
 cat hosts | grep '^0\.0\.0\.0' | awk '{print $2}' > block
 # преобразуем blacklist.txt в файл mybase, удаляя лишние строки
@@ -21,4 +21,4 @@ echo "server:" > /etc/unbound/unbound.conf.d/hosts-alternates.conf
 # формируем список вида local_zone: "domain" always_nxdomain
 awk '{print "local-zone: \""$1"\" always_nxdomain"}' merged_corr >> /etc/unbound/unbound.conf.d/hosts-alternates.conf
 # перезапускаем unbound
-service unbound restart
+systemctl restart unbound
