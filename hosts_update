@@ -8,4 +8,4 @@ echo "server:" > /etc/unbound/unbound.conf.d/hosts-alternates.conf
 # получаем список хостов, форматируем и добавляем
 curl $URL | grep '^0\.0\.0\.0' | awk '{print "local-zone: \""$2"\" redirect\nlocal-data: \""$2". IN A 0.0.0.0\"\nlocal-data: \""$2". IN AAAA ::0\""}' >> /etc/unbound/unbound.conf.d/hosts-alternates.conf
 # перезапускаем unbound
-service unbound restart
+systemctl restart unbound
